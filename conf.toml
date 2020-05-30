@@ -1,31 +1,25 @@
 ######################################
-Title = "IS Configure File"
+Title = "IUS Configure File"
 #### 默认拦截策略
 [Default]
 B64 = true
-Html = "/var/is/html/default/"
+Html = "/rootpath/subpath"
 Status = 404
 Debug = 5
 
 ######################################
 #### 业务拦截配置
-
-### news拦截策略
-## news CC攻击拦截策略
-# Html和Headers的优先级高于Status
-[Incept."news.domain.com".Brute."^/login/"]
-Html = "/var/is/html/news.domain.com_login/"
-Headers = '{"Server":"IIS666.0","Date":" Wed, 21 Mar 2020 09:53:04 GMT","Content-Type":" text/html; charset=utf-8","Connection":" close","Vary":" Accept-Encoding","Cache-Control":" public, max-age=18","Expires":"-1", "Vary":" *"}'
-Status = 402
-## news 黑名单拦截策略
-[Incept."news.domain.com".Crawle."^/pages/"]
-Html = "/var/is/html/news.domain.com_pages/"
-Status = 404
+## test CC攻击拦截策略
+[Incept."a.test.com".CC]
+Html = "/root/path/a.test.com_cc/"
+Headers = '{"Server":"IIS1.0","Date":" Wed, 25 Dec 2019 09:53:04 GMT","Content-Type":" text/html; charset=utf-8","Connection":" close","Vary":" Accept-Encoding","Cache-Control":" public, max-age=18","Expires":" Wed, 25 Dec 2019 09:53:21 GMT","Last-Modified":" Wed, 25 Dec 2019 09:52:21 GMT","Vary":" *","X-AspNetMvc-Version":" 5.2","X-AspNet-Version":" 4.0.30319","X-Powered-By":" ASP.NET"}'
+Status = 403
 
 ######################################
 ### body编码保存方式,默认false代表不编码
 [Encode]
-"news.domain.com" = true
+"x.c4o.com" = true
+"y.c4o.com"   = true
 
 ######################################
 ### kafka相关配置
@@ -33,4 +27,5 @@ Status = 404
 topic  = "intercept"
 num    = 10
 thread = 20
-addr   = "10.10.10.1:9092"
+addr   = "192.168.1.1:9092"
+local  = "127.0.0.1"
